@@ -7,9 +7,9 @@ module.exports = function(app) {
     app.get("/", function(req, res) {
     	Burger.findAll({}).then(function(dbBurger){
     		var hbsObj = {
-			burgers: data
+			burgers: dbBurger
 		};
-		console.log(data);
+		console.log(dbBurger);
 		res.render("index", hbsObj);
     	});
     });
