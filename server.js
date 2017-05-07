@@ -1,4 +1,5 @@
 var express = require("express");
+var methodOverride = require("method-override");
 var bodyParser = require("body-parser");
 
 var PORT = process.env.PORT || 8080;
@@ -19,12 +20,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-// Static directory
-app.use(express.static("./public"));
+app.use(methodOverride("_method"));
 
 // Routes =============================================================
 
-require("./routes/html-routes.js")(app);
 require("./routes/api-routes.js")(app);
 
 // Syncing our sequelize models and then starting our express app

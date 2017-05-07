@@ -9,25 +9,26 @@ module.exports = function(app) {
     		var hbsObj = {
 			burgers: dbBurger
 		};
-		console.log(dbBurger);
+
 		res.render("index", hbsObj);
     	});
     });
 
     app.post("/", function(req, res){
     	Burger.create({
-    		burger_name: req.body.burger_name
+    		burger_name: req.body.burger_name,
+    		devoured: req.body.devoured
     	}).then(function(dbBurger){
     		res.redirect("/");
     	});
     });
 
     app.put("/:id", function(req, res){
-    	Burger.update({
-    		devoured: req.body.devoured
-    	}, {
+    	Burger.update(
+    		req.body,
+    		{
     		where: {
-    			id: req.body.id
+    			id: req.params.id
     		}
     	}).then(function(dbBurger){
     		res.redirect("/");
